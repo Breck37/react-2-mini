@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import products from './products';
 
+// React 2
+import ProductList from './Components/ProductList';
+
 class App extends Component {
   constructor(){
     super();
@@ -15,6 +18,7 @@ class App extends Component {
       validZip: false,
     }
     this.updateName = this.updateName.bind(this)
+    this.deleteItem = this.deleteItem.bind(this)
   }
 
   // Create addProduct method here
@@ -51,51 +55,65 @@ class App extends Component {
     this.setState({ name: event.target.value })
   }
 
-  render() {
-    console.log(products)
-    let productList = products.map((product, i) => {
-      return (
-        <div key={i}>
-          <img src={product.picture} alt={product.name}/>
-          <h1>{product.name}</h1>
-          <h4>${product.price}</h4>
-          <button id='btn'onClick={() => this.addProduct(product)}>Add to Cart</button>
-        </div>
-      )
-    })
+  // React 2 changes
 
-    let currentCart = this.state.cart.map((product, i) => {
-      return (
-        <div className="cart-item" key={i}>
-          <span className="name">{product.name}</span>
-          <span className="price">${product.price}</span>
-        </div>
-      )
+  // Create deleteItem method here
+  deleteItem(product){
+    let copy = this.state.cart.slice();
+    let newCart = copy.filter(element => element !== product);
+    this.setState({
+      cart: newCart
     })
+  }
+
+  // Create toggleCheck method here
+  toggleCheck = val => {
+    if(val === 'standard'){
+      this.setState({
+        shipping: !this.state.shipping
+      })
+    } else if (val === 'expedited'){
+      this.setState({
+        shipping: true
+      })
+    } else {
+      this.setState({
+        giftWrap: !this.state.giftWrap
+      })
+    }
+  }
+
+  render() {
+
     return (
       <div className="App">
+
           <h1> DevMountain Shop </h1>
-          
-          {/* Display products here */}
+
           <div className="products">
-            {productList}
+            <ProductList products={products} showPicture={true} add={this.addProduct}/>
           </div>
 
-          {/* Create checkout section here */}
 
           <div className="checkout">
-
-            {currentCart}
-
+            <ProductList products={this.state.cart} showPicture={false} delete={this.deleteItem} />
             <div className="checkout-bottom">
 
-              <div>
+              <div className='input-group'>
+                <h3>Customer Information:</h3>
+                <input className='input' type="text" onChange={this.updateName} placeholder='Enter name' value={this.state.name}/>
+                <input className='input'  type="text" onChange={this.updateName} placeholder='Enter email' value={this.state.email}/>
+                <input className='input'  type="text" onChange={this.updateName} placeholder='Enter zipcode' value={this.state.zipcode}/>
 
-                <input type="text" onChange={this.updateName} placeholder='Enter name' value={this.state.name}/>
+                <div className="checkout-options">
+                  <label><input type="radio" value='standard' onChange={e => this.toggleCheck(e.target.value)}/>Standard Shipping</label>
+                  <label><input type="radio" value='expedited' onChange={e => this.toggleCheck(e.target.value)}/>Expedited Shipping ($5.00)</label>
+                  <label><input type="checkbox"/>Gift Wrap ($10.00)</label>
+                </div>
 
               </div>
 
-              <h1>${this.calculateTotal()}</h1>
+              <h1 className='total'>${this.calculateTotal()}</h1>
 
             </div>
 
