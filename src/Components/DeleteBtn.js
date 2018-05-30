@@ -1,5 +1,5 @@
 import React from 'react'
-import icons from 'glyphicons';
+// import icons from 'glyphicons';
 
 const DeleteBtn = props => {
     return (

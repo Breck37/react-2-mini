@@ -106,9 +106,9 @@ class App extends Component {
                 <input className='input'  type="text" onChange={this.updateName} placeholder='Enter zipcode' value={this.state.zipcode}/>
 
                 <div className="checkout-options">
-                  <label><input type="radio" value='standard' onChange={e => this.toggleCheck(e.target.value)}/>Standard Shipping</label>
-                  <label><input type="radio" value='expedited' onChange={e => this.toggleCheck(e.target.value)}/>Expedited Shipping ($5.00)</label>
-                  <label><input type="checkbox"/>Gift Wrap ($10.00)</label>
+                  <label><input type="radio" value='standard' onChange={e => this.toggleCheck(e.target.value)} checked={!this.state.shipping}/>Standard Shipping</label>
+                  <label><input type="radio" value='expedited' onChange={e => this.toggleCheck(e.target.value)} checked={this.state.shipping}/>Expedited Shipping ($5.00)</label>
+                  <label><input type="checkbox" onClick={e => this.toggleCheck(e)} checked={this.state.giftWrap}/>Gift Wrap ($10.00)</label>
                 </div>
 
               </div>

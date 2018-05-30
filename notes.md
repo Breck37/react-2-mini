@@ -2,30 +2,30 @@ React 2 changes
 
 # Step 1
 `Setup`
-* Add glyphicons package `yarn add glyphicons`
-* Create a Components folder
-* Create ProductList Functional component (Import to App.js)
+* Add glyphicons package by running `yarn add glyphicons` or `npm install glyphicons`.
+* Create a `Components` folder inside the `src` folder.
+* Create ProductList Functional component inside `Components`(Import to App.js)
 `export default function ProductList(props){}`
-* Create Button Functional Component (Import to ProductList.js)
+* Create Button Functional Component inside `Components` (Import to ProductList.js)
 `const Button = props => {}`
-* Create DeleteBtn Functional Component (Import to ProductList.js)
+* Create DeleteBtn Functional Component inside `Components` (Import to ProductList.js)
 `const DeleteBtn = props => {}`
 
 # Step 2
 `src/App.js`
 * Remove Product and Cart map from App.js (Inside render)
-* Remove {productList} variable (Inside return), replacing them with ProductList component
-* Inside the products div, add a `products` property to <ProductsList /> set equal to the products variable import. 
-    * Also include a `showPicture` property set to true and a `add` property set to `this.addProduct`.
+* Remove {productList} variable (Inside return), replacing them with the ProductList component `<ProductList />
+* Inside the products div, add a `products` property to <ProductsList /> set equal to the products variable from our import. 
+    * Also include a `showPicture` property set to true and an `add` property set to `this.addProduct`.
 
 # Step 3
 `src/Components/ProductList.js`
 * Inside the ProductList component, create a map on the products prop set to a `list` variable. Inside the maps return statement, create an outer `div` with a `<ul className='list'>` inside of it. 
-* Inside the `ul` use curly braces to break out of the JSX, here we are going to create a statement depends on the `showPicture` prop. If it's truthy, we want to render the product image first. 
+* Inside the `ul` use curly braces to break out of the JSX, here we are going to create a statement that depends on the `showPicture` prop. If it's truthy, we want to render the product image first. 
 `{props.showPicture && <img src=''>}`
 * Next, we want to create an `li` tag with an inner `b` tag containing the products name.
-* Next, we want to create another li tag containing the item price. (Include $ in instructions?)
-* Lastly, use curly braces again to create a ternary that checks if we were passed an `add` prop. If so, we will render our Button component, passing the `add`function as an action prop or property, `Add to Cart` as a text prop and passing the entire `product` as a param prop. If not, just put `null`.
+* Next, we want to create another `li` tag containing the item price. (Include $ in instructions?)
+* Lastly, use curly braces again to create a ternary statement that checks if we were passed an `add` prop. If so, we will render our Button component, passing the `add` function as an action prop or property, `Add to Cart` as a text prop and passing the entire `product` as a param prop. If not, just put `null`.
 
 # Step 4
 `src/Components/Button.js`
@@ -92,3 +92,8 @@ export default Button;
 
 # Step 11
 
+* Next we need to update our `calculateTotal` method to reflect the checkout options. We'll start by locating our calculateTotal method.
+* Inside the method, we'll create a variable called total and set it equal to the `.map().reduce()` that we already have set up and erase the current return statement.
+* Below the `.map().reduce()` we will need to setup a conditional for our additional prices, which will start by checking `this.state.shippng`. If the value is truthy, we will add 5 to the total. 
+* In an else if statement, we'll also check the valud of `this.state.giftWrap` and if this value is truthy, we'll add 10 to the total. 
+* At the end of the method, we'll return the `total` variable.
