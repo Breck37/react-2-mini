@@ -50,7 +50,7 @@ export default Button;
 
 # Step 5
 `src/App.js`
-* In App.js, locate the `currentCart` variable and remove it. In it's place, lets create another `<ProductList />` tag passing a products prop set to `this.state.cart`, the showPicture prop we used previously set to false, and a `delete` prop set to `this.deleteItem` (which we will create in the next step) with the product. 
+* In App.js, locate the `currentCart` variable and remove it. In it's place, lets create another `<ProductList />` tag passing a products prop set to `this.state.cart`, the showPicture prop we used previously set to false, and a `delete` prop set to `this.deleteItem` (which we will create in the next step). 
 * Above the render, create a deleteItem method that takes in a product as a parameter. 
 * Inside the deleteItem method, lets make a copy of our current cart using `.slice()`. Then, create a variable `newCart` set to a `.filter()` through the cart copy that only returns items not the same as the product passed in. 
 * Then `setState()` on the `cart` property using the `newCart` variable.
@@ -60,13 +60,11 @@ export default Button;
 `src/Components/ProductList.js`
 * At the top of our component, import our newly created `DeleteBtn` component.
 * Locate the ternary that depends on the `add` prop. In the false position of the ternary, render the `DeleteBtn` tag passing an `action` prop set a callback that invokes the delete function with the `product` and a `text` prop set to `delete`.
-
-# Step 7
 `src/Components/DeleteBtn.js`
 * Inside the return of our functional component, create a `span` tag with an `onClick` set to our action prop.
 * Inside the span tag, use curly braces to render our text prop. 
 
-# Step 8
+# Step 7
 `src/App.js`
 * Now we are going to update our checkout options and we will start by putting three new properties in our state object, `shipping`, `giftWrap` and `validZip` - setting all to false. 
 * Next, below the deleteItem method, create a toggleCheck arrow function that takes in the `event.target.value` as `val`
@@ -75,12 +73,7 @@ export default Button;
 * Else if its not equal to shipping, test if it is equal to `expedited` and if so, `setState` of shipping to `true`.
 * Lastly, in the else portion of our conditional, `setState` of `giftWrap` to be opposite of what it currently is. 
 
-# Step 9
-
-//SWITCH UPDATE NAME TO HANDLEUSERINPUT?
-
-
-# Step 10
+# Step 8
 
 * Locate the first `div` inside our `checkout-bottom` div that contains the `name` input and give that div a className of `input-group` 
 * Below the `name` input, create two more inputs, one for email and the other for zipcode. (Copy all properties from the name input and update them to reflect the new value for the new inputs)
@@ -90,10 +83,14 @@ export default Button;
 * This first `<label><input />` will be for `Standard shipping` which means we will give the input a type of `radio`, a value property set to `standard` an onChange set to a callback that takes in the event and invokes `this.toggleCheck` using the event.target.value. We will repeat this step for the second `<label><input />` which will be for `Expedited ($5.00)` shipping, with a value property set to `expedited`. 
 * The third `<label><input />` will be for our `Gift Wrap ($10.00)` option. The type of this input will be `checkbox` and it will also have an `onChange` property for the `toggleCheck` method.
 
-# Step 11
+# Step 9
 
 * Next we need to update our `calculateTotal` method to reflect the checkout options. We'll start by locating our calculateTotal method.
 * Inside the method, we'll create a variable called total and set it equal to the `.map().reduce()` that we already have set up and erase the current return statement.
 * Below the `.map().reduce()` we will need to setup a conditional for our additional prices, which will start by checking `this.state.shippng`. If the value is truthy, we will add 5 to the total. 
 * In an else if statement, we'll also check the valud of `this.state.giftWrap` and if this value is truthy, we'll add 10 to the total. 
 * At the end of the method, we'll return the `total` variable.
+
+
+
+* Should we create one of the components as a class so that they use `this.props`?
