@@ -21,7 +21,8 @@ In this step, we are going to finish our setup by adding an npm package to be us
 
 ### Instructions
 
-* First, we will want to create a `Components` folder inside of our `src` folder.
+* First, run `yarn add glyphicons` or `npm install glyphicons`.
+* While that package is downloading, create a `Components` folder inside of our `src` folder.
 * Then, inside the `Components` folder, create a file titled `ProductList.js`.
   * This component should be a stateless functional component that will need to take `props` as a parameter.
 * Next, still inside the `Components` folder, we will create two more stateless functional components. 
