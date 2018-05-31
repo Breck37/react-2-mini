@@ -14,7 +14,7 @@ React 2 changes
 # Step 2
 `src/App.js`
 * Remove Product and Cart map from App.js (Inside render)
-* Remove {productList} variable (Inside return), replacing them with the ProductList component `<ProductList />
+* Remove {productList} variable (Inside return), replacing them with the ProductList component `<ProductList />`
 * Inside the products div, add a `products` property to <ProductsList /> set equal to the products variable from our import. 
     * Also include a `showPicture` property set to true and an `add` property set to `this.addProduct`.
 
