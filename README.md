@@ -8,10 +8,10 @@ Click Me!
 
 ### Setup
 
-```Fork``` and ```clone``` this repository.
-```cd``` into the project directory.
-Run ```npm install``` or ```yarn```
-Run ```npm start``` or ```yarn start``` once install has finished.
+* ```Fork``` and ```clone``` this repository.
+* ```cd``` into the project directory.
+* Run ```npm install``` or ```yarn```
+* Run ```npm start``` or ```yarn start``` once install has finished.
 
 ## Step 1
 
@@ -22,7 +22,7 @@ In this step, we are going to finish our setup by adding an npm package to be us
 ### Instructions
 
 * First, run `yarn add glyphicons` or `npm install glyphicons`.
-* While that package is downloading, create a `Components` folder inside of our `src` folder.
+* While that package is downloading, create a `Components` folder inside of the `src` folder.
 * Then, inside the `Components` folder, create a file titled `ProductList.js`.
   * This component should be a stateless functional component that will need to take `props` as a parameter.
 * Next, still inside the `Components` folder, we will create two more stateless functional components. 
@@ -75,12 +75,12 @@ export default DeleteBtn;
 
 ### Summary
 
-In this step, we are going to clean up what we will not need from App.js, as well as making changes so we can use our new ProductList component in App.js
+In this step, we are going to clean up what we will not need from App.js, as well as make additional changes so we can use the new ProductList component in App.js
 
 ### Instructions
 
 * To start, we will first import the `ProductList` component into `App.js`.
-* Next, look for the `productList` and `currentCart` map variables inside the render and above the return. Once found, remove them. 
+* Next, look for the `productList` and `currentCart` map variables inside the render, above the return and remove them. 
 * Now, down in the return, find the div labeled `products` and replace the `productList` variable with our the `ProductList` component. (`<ProductList />`)
 * In the ProductList tag, insert a `products` property set equal to the `products` variable from our import of `products.js`.
   * Also add a `showPicture` property set to `true` and an `add` property set to `this.addProduct`.
@@ -190,7 +190,7 @@ export default App;
 
 ### Summary
 
-In this step, we are going to build out our ProductList Component to handle the props that are being passed in. Please note that we want to create this component in a way that we can reuse it.
+In this step, we are going to build out our ProductList Component to handle the props that are being passed in. Please note that we want to create this component in a way that we can reuse it for the cart list later in the project.
 
 ### Instructions
 
@@ -199,9 +199,10 @@ In this step, we are going to build out our ProductList Component to handle the 
 * Inside the ProductList function, create a map on the products prop set to a `list` variable. Inside the maps return statement, create an outer `div` with a `<ul className='list'>` inside of it. 
 * Inside the `ul` use curly braces to break out of the JSX, here we are going to create a statement that depends on the `showPicture` prop. If it's truthy, we want to render the product image using an img tag. 
 `{props.showPicture && <img src=''>}`
-* Next, we want to create an `li` tag with an inner `b` tag containing the products name, make sure to use the `break` tag or `<br/>` afterwards. 
-* Next, we want to create another `li` tag containing the item price, also including a `break` tag afterwards. (Include $ in instructions?)
-* Lets finish our map by using curly braces again to test the truthiness of the `add` prop. If its truthy, we will render our Button component, passing the `add` function as an action prop or property, `Add to Cart` as a text prop and passing the entire `product` as a param prop.
+* Next, we want to create an `li` tag with an inner `b` or `bold` tag containing the products name, make sure to use the `break` tag or `<br/>` afterwards. 
+* Next, we want to create another `li` tag containing the item price, also including a `break` tag afterwards. 
+  * If you're looking for something more realistic, place a $ sign before your curly braces.
+* Lets finish our map by using curly braces again to test the truthiness of the `add` prop. If its truthy, we will render our Button component, passing the `add` function as an action prop or property, 'Add to Cart' as a text prop and passing the entire `product` as a param prop.
 * Lastly, return the `list` variable below the map but still inside our `ProductList` function.
 
 ### Solution
@@ -209,7 +210,7 @@ In this step, we are going to build out our ProductList Component to handle the 
 <details>
   <summary><code>src/Components/ProductList.js</code></summary>
 
-```jsx
+```html
 import React from 'react'
 import Button from './Button'
 
@@ -245,7 +246,8 @@ In this step, we will build out the `Button` component so that it can successful
 * Between your opening button tag and your closing button tag, use curly braces to access the `text` prop.
 
 ### Solution
-<detail>
+
+<details>
   <summary><code>src/Components/Button</code></summary>
 
 ```jsx
@@ -274,7 +276,7 @@ In this step, we will use the `ProductList` component for our cart display, as w
 * Open `src/App.js`
 * Locate the `currentCart` variable within the App return and remove it. In it's place, lets create another `<ProductList />` tag with a `products` property set to `this.state.cart`, the `showPicture` prop set to `false`, and a `delete` prop set to `this.deleteProduct`.
 * Above the render, create a `deleteProduct` method that takes in a `product` parameter. 
-* Inside the deleteProduct method, lets make a copy of our current cart using `.slice()` and save it to a variable titled `cartCopy`. Then create a variable `newCart` set to filter through the cart copy that only return items that are not equal to the product that was passed in.
+* Inside the deleteProduct method, lets make a copy of our current cart using `.slice()` and save it to a variable titled `cartCopy`. * Now create a variable `newCart` set to filter through the cart copy that will only return items that are not equal to the product that was passed in.
 * After the filter, call `setState` on the `cart` property and set it to the `newCart` variable.
 * Lastly, make sure to call `bind` on this method from within the constructor. (This allows the method to maintain the context of `this`)
 
@@ -399,7 +401,7 @@ In this step, we will update our ProductList component to use the `DeleteBtn` co
 
 * Open `src/Components/ProductList.js`
 * At the top of our component, import the `DeleteBtn` component.
-* Locate the statement that depends on `add` prop and remove the `&&` by replacing it with a `?`.
+* Locate the statement that depends on the `add` prop and remove the `&&` by replacing it with a `?`.
 * Here we are going to create a ternary so that if the `add` prop is truthy, it will render the `Button` component that we already set up and if it's falsy, it will render the `DeleteBtn` instead.
 * To finish the ternary, add a `:` after the `Button` component and then render the `DeleteBtn` tag passing an `action` property set to a callback that invokes the `delete` prop with the `product` and a `text` prop set to `delete`.
 * Next, open `src/Components/DeleteBtn.js`.
@@ -458,7 +460,7 @@ export default DeleteBtn;
 
 ### Summary
 
-In this step, we will initialize some new properties on state that will be used for some checkout options we will be creating for the user, as well as deleting our current `updateName` method.
+In this step, we will initialize some new properties on state that will be used as additional checkout options for the user, as well as deleting our current `updateName` method.
 
 ### Instructions
 
@@ -467,7 +469,7 @@ In this step, we will initialize some new properties on state that will be used 
 * Next, below the `deleteProduct` method, create a `toggleCheck` arrow function that takes in a parameter called `val`.
 * Inside the method, create a conditional that tests if `val` is equal to `standard`, if it is - call `setState` of `shipping` to be `false`. If it is not, `standard`, continue your conditional to test if `val` is equal to `expedited` and if so, call `setState` to change `shipping` to `true`
 * Next, in the `else` portion of our conditional, `setState` of `giftWrap` to be the opposite of what it currently is (think bang operator).
-* Now, locate the method we created yesterday call `updateName` and remove it. 
+* Now, locate the method we created yesterday called `updateName` and remove it. 
   * Go ahead and remove the bind statement as well.
 
 
@@ -498,7 +500,6 @@ class App extends Component {
       email: '',
       zip: '',
     }
-    this.handleUserInput = this.handleUserInput.bind(this)
     this.deleteProduct = this.deleteProduct.bind(this)
   }
 
@@ -603,7 +604,7 @@ export default App;
 
 ### Summary
 
-In this step, we are going to create another new method to handle user input for different fbuild our checkout section in `App.js` to include some additional options for our user.
+In this step, we will create our new inputs while updating the `onChange` that we currently have for our `name` input.
 
 ### Instructions
 
@@ -637,8 +638,9 @@ class App extends Component {
       shipping: false,
       giftWrap: false,
       validZip: false,
+      email: '',
+      zip: '',
     }
-    this.updateName = this.updateName.bind(this)
     this.deleteProduct = this.deleteProduct.bind(this)
   }
 
