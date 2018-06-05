@@ -28,7 +28,7 @@ class App extends Component {
     this.setState({
       cart: [...this.state.cart, product]
     })
-    toast.success('Product successfully added!');
+    toast.success(`${product.name} successfully added!`);
   }
 
     // Create checkout method here
