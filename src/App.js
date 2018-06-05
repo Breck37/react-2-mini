@@ -4,6 +4,8 @@ import products from './products';
 
 // React 2
 import ProductList from './Components/ProductList';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   constructor(){
@@ -15,10 +17,10 @@ class App extends Component {
       //React 2
       shipping: false,
       giftWrap: false,
-      validZip: false,
+      email: '',
+      zipcode: '',
     }
-    this.updateName = this.updateName.bind(this)
-    this.deleteItem = this.deleteItem.bind(this)
+    this.deleteProduct = this.deleteProduct.bind(this)
   }
 
   // Create addProduct method here
@@ -26,39 +28,42 @@ class App extends Component {
     this.setState({
       cart: [...this.state.cart, product]
     })
+    toast.success('Product successfully added!');
   }
 
-  // Create checkout method here
-  checkout = () => {
-    if(!this.state.name){
-      this.setState({
-        message: 'You must enter a name to continue. '
-      })
-    } else {
-      this.setState({
-        cart: [],
-        name: '',
-        message: 'Payment Successful!'
-      })
+    // Create checkout method here
+    checkout = () => {
+      if(!this.state.name){
+        this.setState({
+          message: 'You must enter a name to continue. '
+        })
+      } else {
+        this.setState({
+          cart: [],
+          name: '',
+          message: 'Payment Successful!'
+        })
+      }
     }
-  }
-
-  // Create calculateTotal method here
-  calculateTotal(){
-    return this.state.cart.map(e => {
-      return e.price
-    }).reduce((a, c) => a + c, 0)
-  }
-
-  // Create updateName method here
-  updateName(event){
-    this.setState({ name: event.target.value })
-  }
+  
+    // Create calculateTotal method here
+    calculateTotal(){
+      let total = this.state.cart.map(e => {
+        return e.price
+      }).reduce((a, c) => a + c, 0)
+      if(this.state.shipping){
+        total += 5
+      }
+      if (this.state.giftWrap){
+        total += 10
+      }
+      return total
+    }
 
   // React 2 changes
 
   // Create deleteItem method here
-  deleteItem(product){
+  deleteProduct(product){
     let copy = this.state.cart.slice();
     let newCart = copy.filter(element => element !== product);
     this.setState({
@@ -87,8 +92,10 @@ class App extends Component {
 
     return (
       <div className="App">
-
           <h1> DevMountain Shop </h1>
+            <ToastContainer />
+
+          
 
           <div className="products">
             <ProductList products={products} showPicture={true} add={this.addProduct}/>
@@ -96,19 +103,33 @@ class App extends Component {
 
 
           <div className="checkout">
-            <ProductList products={this.state.cart} showPicture={false} delete={this.deleteItem} />
+            <ProductList products={this.state.cart} showPicture={false} delete={this.deleteProduct} />
             <div className="checkout-bottom">
 
               <div className='input-group'>
+
                 <h3>Customer Information:</h3>
-                <input className='input' type="text" onChange={this.updateName} placeholder='Enter name' value={this.state.name}/>
-                <input className='input'  type="text" onChange={this.updateName} placeholder='Enter email' value={this.state.email}/>
-                <input className='input'  type="text" onChange={this.updateName} placeholder='Enter zipcode' value={this.state.zipcode}/>
+                <input type="text" onChange={(event) => this.setState({name: event.target.value})} placeholder='Enter name' value={this.state.name}/>
+                <input type="text" onChange={(event) => this.setState({email: event.target.value})} placeholder='Enter email' value={this.state.email}/>
+                <input type="number" onChange={(event) => this.setState({zipcode: event.target.value})} placeholder='Enter ZipCode'/>
+
+                {this.state.zipcode ? this.state.zipcode.length === 5 ? <i className="fas fa-check-circle" style={{color: 'green'}}>Zip Code Verified</i> : <i className="fas fa-times-circle" style={{color: 'red'}}>Zip Code Not Verified</i> : null}
 
                 <div className="checkout-options">
-                  <label><input type="radio" value='standard' onChange={e => this.toggleCheck(e.target.value)} checked={!this.state.shipping}/>Standard Shipping</label>
-                  <label><input type="radio" value='expedited' onChange={e => this.toggleCheck(e.target.value)} checked={this.state.shipping}/>Expedited Shipping ($5.00)</label>
-                  <label><input type="checkbox" onClick={e => this.toggleCheck(e)} checked={this.state.giftWrap}/>Gift Wrap ($10.00)</label>
+                  <label>
+                    <input type="radio" value='standard' onChange={e => this.toggleCheck(e.target.value)} checked={!this.state.shipping}/>
+                      Standard Shipping
+                  </label>
+
+                  <label>
+                    <input type="radio" value='expedited' onChange={e => this.toggleCheck(e.target.value)} checked={this.state.shipping}/>
+                      Expedited Shipping ($5.00)
+                  </label>
+
+                  <label>
+                    <input type="checkbox" onClick={e => this.toggleCheck(e)} checked={this.state.giftWrap}/>
+                      Gift Wrap ($10.00)
+                  </label>
                 </div>
 
               </div>

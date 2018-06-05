@@ -66,12 +66,13 @@ export default Button;
 
 # Step 7
 `src/App.js`
-* Now we are going to update our checkout options and we will start by putting three new properties in our state object, `shipping`, `giftWrap` and `validZip` - setting all to false. 
+* Now we are going to update our checkout options and we will start by putting three new properties in our state object, `shipping`, `giftWrap` - setting all to false. 
 * Next, below the deleteItem method, create a toggleCheck arrow function that takes in the `event.target.value` as `val`
 `toggleCheck = val => {}`
 * Inside the method, create a conditional that tests if `val` is equal to `standard`, if it is - `setState` of `shipping` to be the opposite of what it is.
 * Else if its not equal to shipping, test if it is equal to `expedited` and if so, `setState` of shipping to `true`.
-* Lastly, in the else portion of our conditional, `setState` of `giftWrap` to be opposite of what it currently is. 
+* Lastly, in the else portion of our conditional, `setState` of `giftWrap` to be opposite of what it currently is.
+* Also use email and zip inside of this.state. 
 
 # Step 8
 

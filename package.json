@@ -6,7 +6,8 @@
     "glyphicons": "^0.2.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-toastify": "^4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

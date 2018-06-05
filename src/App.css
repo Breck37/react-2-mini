@@ -22,10 +22,11 @@ h1 {
   flex: 1;
 }
 
-.products > div > img {
+.products > div > ul > img {
   margin: 20px;
-  max-width: 200px;
-  max-height: 200px;
+  width: 100px;
+  min-width: 300px;
+  min-height: 300px;
 }
 
 .checkout {
@@ -84,6 +85,27 @@ button:hover {
 ul.list {
   list-style: none;
   font-size: 2em;
+  padding: 0;
+}
+
+.checkout > div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.checkout > div > ul.list {
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.checkout > div > ul.list > li > b, .checkout > div > ul.list > li {
+    margin: 5px;
+}
+
+.checkout > div > ul.list > button {
+  margin-right: 20px;
 }
 
 .input-group {
